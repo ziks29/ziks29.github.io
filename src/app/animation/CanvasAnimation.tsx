@@ -24,29 +24,21 @@ const CanvasAnimation: React.FC = () => {
         canvas.height = window.innerHeight;
 
         const squares: Square[] = [];
-        const squaresPerRow = Math.floor(
-          (window.innerWidth - GAP) / (SQUARE_SIZE + GAP)
+        const squaresPerRow = Math.ceil(
+          window.innerWidth / (SQUARE_SIZE + GAP)
         );
-        const squaresPerColumn = Math.floor(
-          (window.innerHeight - GAP) / (SQUARE_SIZE + GAP)
+        const squaresPerColumn = Math.ceil(
+          window.innerHeight / (SQUARE_SIZE + GAP)
         );
-        const offsetX =
-          (canvas.width - squaresPerRow * (SQUARE_SIZE + GAP) + SQUARE_SIZE) /
-          2;
-        const offsetY =
-          (canvas.height -
-            squaresPerColumn * (SQUARE_SIZE + GAP) +
-            SQUARE_SIZE) /
-          2;
 
         for (let y = 0; y < squaresPerColumn; y++) {
           for (let x = 0; x < squaresPerRow; x++) {
             squares.push({
-              x: x * (SQUARE_SIZE + GAP) + offsetX,
-              y: y * (SQUARE_SIZE + GAP) + offsetY,
+              x: x * (SQUARE_SIZE + GAP),
+              y: y * (SQUARE_SIZE + GAP),
               baseSize: SQUARE_SIZE,
               size: 0, // Start from 0 size for the wave effect
-              delay: (x + y) * 50, // Delay based on position
+              delay: (x + y) * 20, // Delay based on position
             });
           }
         }
@@ -64,7 +56,7 @@ const CanvasAnimation: React.FC = () => {
 
           squares.forEach((square) => {
             if (currentTime - 2000 > square.delay) {
-              // Wait for 4 seconds (4000 milliseconds) before starting
+              // Wait for 4 seconds before starting
               square.size = Math.min(square.size + 1, square.baseSize); // Increase size until it reaches baseSize
             }
             drawSquare(square);
