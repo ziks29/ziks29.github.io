@@ -38,7 +38,7 @@ const CanvasAnimation: React.FC = () => {
               y: y * (SQUARE_SIZE + GAP),
               baseSize: SQUARE_SIZE,
               size: 0, // Start from 0 size for the wave effect
-              delay: (x + y) * 20, // Delay based on position
+              delay: (x + y) * 50, // Delay based on position
             });
           }
         }
@@ -78,7 +78,8 @@ const CanvasAnimation: React.FC = () => {
   }, []);
 
   return (
-    <canvas ref={canvasRef} className="fixed inset-0 w-full h-full -z-10" />
+    // <canvas ref={canvasRef} className="fixed inset-0 w-full h-full -z-10" />
+    <div></div>
   );
 };
 
