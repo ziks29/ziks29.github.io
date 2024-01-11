@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import useStore from "../lib/store";
 
 const msg: string[] = [
@@ -36,20 +36,23 @@ export const CommandPrompt = () => {
   const lastMessageClicked = useRef(false);
   const intervalRef = useRef<NodeJS.Timeout>();
 
-  const performAction = (messageNumber: number) => {
-    switch (messageNumber) {
-      case 1:
-        setLoadingAnimation(true);
-        setHeaderVisible(true);
-        break;
-      case 2:
-        setLoadingAnimation(true);
-        setFooterVisible(true);
-        break;
-      default:
-        break;
-    }
-  };
+  const performAction = useCallback(
+    (messageNumber: number) => {
+      switch (messageNumber) {
+        case 1:
+          setLoadingAnimation(true);
+          setHeaderVisible(true);
+          break;
+        case 2:
+          setLoadingAnimation(true);
+          setFooterVisible(true);
+          break;
+        default:
+          break;
+      }
+    },
+    [setFooterVisible, setHeaderVisible]
+  );
 
   // Function to handle key press
   const handleKeyPress = (event: KeyboardEvent) => {
