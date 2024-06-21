@@ -1,44 +1,28 @@
-"use client";
-import useStore from "../lib/store";
+import Link from "next/link";
+
+const urls = {
+  Home: "/",
+  About: "/about",
+  Projects: "/projects",
+  Blog: "/blog",
+  Contact: "/contact",
+};
 
 export default function Header() {
-  const { headerVisible } = useStore() as { headerVisible: boolean };
-
   return (
-    <div
-      className={`bg-gray-800 text-white ${
-        headerVisible ? "opacity-100" : "opacity-0"
-      } transition-all`}
-    >
-      <div className="container">
-        <div className="flex justify-between items-center py-2">
-          <div>
-            <a href="#" className="text-sm font-bold text-gray-100">
-              ushpuras.me
-            </a>
-          </div>
-          <div>
-            <a
-              href="#"
-              className="inline-block py-2 px-4 text-gray-400 hover:text-gray-100"
-            >
-              Home
-            </a>
-            <a
-              href="#"
-              className="inline-block py-2 px-4 text-gray-400 hover:text-gray-100"
-            >
-              About
-            </a>
-            <a
-              href="#"
-              className="inline-block py-2 px-4 text-gray-400 hover:text-gray-100"
-            >
-              Contact
-            </a>
-          </div>
-        </div>
+    //Header must be on right side and li centered in header
+    <header className="container flex justify-end items-center h-16 ">
+      <div className="flex gap-10">
+        {Object.entries(urls).map(([name, url]) => (
+          <Link
+            key={name}
+            className="underline hover:text-purple-100 hover:translate-y-1 hover:scale-105  hover:underline-offset-[7px] underline-offset-[1px] transition-all ease-in-out duration-300 focus:scale-95"
+            href={url}
+          >
+            {name}
+          </Link>
+        ))}
       </div>
-    </div>
+    </header>
   );
 }

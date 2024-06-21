@@ -1,14 +1,20 @@
 import { Metadata } from "next";
-import { CommandPrompt } from "./components/CommandPromt";
+import Hero from "./components/Hero";
+import About from "./components/About";
 
 export const metadata: Metadata = {
   title: "Ushpuras Dev",
   description:
-    "My name is Aurimas Ushpuras and I am a Fullstack Web Developer. I have been working with web technologies for over 10 years. I have worked with many different technologies and frameworks, but my main focus is on JavaScript and TypeScript. I am currently working on a GameFi project on TON Blockchain.",
+    "I'm a software developer based in Germany. I specialize in building websites and web applications.",
 };
 
-const PortfolioPage = () => {
-  return <CommandPrompt />;
+const Page = () => {
+  return (
+    <div className="flex h-full flex-col">
+      <Hero />
+      <About />
+    </div>
+  );
 };
 
-export default PortfolioPage;
+export default Page;
