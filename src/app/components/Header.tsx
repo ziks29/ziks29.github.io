@@ -2,10 +2,10 @@ import Link from "next/link";
 
 const urls = {
   Home: "/",
-  About: "/about",
-  Projects: "/projects",
+  About: "#about",
+  Projects: "#projects",
   Blog: "/blog",
-  Contact: "/contact",
+  Contact: "#contact",
 };
 
 export default function Header() {

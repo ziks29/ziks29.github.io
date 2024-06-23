@@ -70,9 +70,8 @@ const Skills = ({
 }) => {
   return (
     <div>
-      {/* <h2 className="text-2xl uppercase">Skills</h2> */}
+      <h2 className="text-2xl uppercase">{title ? "Skills" : ""} </h2>
       <div className="">
-        <h2 className="text-2xl uppercase">{title ? "Skills" : ""} </h2>
         <h3 className="text-xl text-nile-300">
           {stack === backendTechnologies
             ? "Backend"
@@ -94,7 +93,10 @@ const Skills = ({
 
 export default function About() {
   return (
-    <div className="container flex flex-col items-center justify-start py-10   min-h-[calc(100dvh-40px)] space-y-4">
+    <div
+      id="about"
+      className="container flex flex-col items-center justify-start py-10   min-h-[calc(100dvh-40px)] space-y-4"
+    >
       {/* <h1 className="text-4xl ">About</h1> */}
       {/* Span divider */}
       <motion.span
