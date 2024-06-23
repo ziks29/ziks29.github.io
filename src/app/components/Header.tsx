@@ -11,12 +11,12 @@ const urls = {
 export default function Header() {
   return (
     //Header must be on right side and li centered in header
-    <header className="container flex justify-end items-center h-16 ">
-      <div className="flex gap-10">
+    <header className="container flex justify-center sm:justify-end items-center h-20   ">
+      <div className="flex flex-wrap gap-x-10 gap-y-2 text-base sm:text-xl">
         {Object.entries(urls).map(([name, url]) => (
           <Link
             key={name}
-            className="underline hover:text-purple-100 hover:translate-y-1 hover:scale-105  hover:underline-offset-[7px] underline-offset-[1px] transition-all ease-in-out duration-300 focus:scale-95"
+            className="underline hover:text-nile-100 hover:translate-y-1 hover:scale-105  hover:underline-offset-[7px] underline-offset-[1px] transition-all ease-in-out duration-300 focus:scale-95"
             href={url}
           >
             {name}

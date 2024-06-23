@@ -99,7 +99,7 @@ function SecondText({ className = "" }) {
 
 export default function Hero() {
   return (
-    <div className="container h-[calc(100dvh-64px)] flex flex-col justify-center">
+    <div className="container h-[calc(100dvh-80px)] flex flex-col justify-center">
       <h1 className=" text text-[50px]">
         {/* Typing animation */}
         {hText.split("").map((char, index) => (
