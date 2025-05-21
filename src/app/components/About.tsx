@@ -1,5 +1,5 @@
 "use client";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 const stack = [
   "React",
@@ -122,7 +122,10 @@ export default function About() {
           <div>
             <p className="">
               Telegram:{" "}
-              <a className="hover:text-nile-100  " href="https://t.me/ziks0">
+              <a
+                className="hover:text-nile-100  "
+                href="https://t.me/m/0v199G8VNDc0"
+              >
                 @ziks0
               </a>
             </p>
