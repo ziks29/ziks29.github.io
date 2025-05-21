@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import Hero from "./components/Hero";
 import About from "./components/About";
-import Projects from "./components/Projects";
+// import Projects from "./components/Projects";
 
 export const metadata: Metadata = {
   title: "Ushpuras Dev",
@@ -14,7 +14,7 @@ const Page = () => {
     <div className="flex h-full flex-col">
       <Hero />
       <About />
-      <Projects />
+      {/* <Projects /> */}
     </div>
   );
 };
