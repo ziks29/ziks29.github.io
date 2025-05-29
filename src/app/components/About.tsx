@@ -1,5 +1,6 @@
 "use client";
-import { motion } from "motion/react";
+import { motion, useScroll, useTransform } from "motion/react";
+import { useRef } from "react";
 
 const stack = [
   "React",
@@ -92,33 +93,38 @@ const Skills = ({
 };
 
 export default function About() {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+
+  const width = useTransform(scrollYProgress, [0, 1], ["0%", "200%"]);
+
   return (
     <div
+      ref={ref}
       id="about"
-      className="container flex flex-col items-center justify-start py-10   min-h-[calc(100dvh-40px)] space-y-4"
+      className="container flex flex-col items-center justify-between py-10   min-h-[calc(100dvh-40px)] space-y-4"
     >
-      {/* <h1 className="text-4xl ">About</h1> */}
       {/* Span divider */}
       <motion.span
-        initial={{ width: 0 }}
-        whileInView={{ width: "100%" }}
-        transition={{ delay: 0.5 }}
+        style={{ width }}
         className="h-[1px] bg-nile-900"
       ></motion.span>
-      {/* <p className="text-lg">In development</p>
-       */}
-      {/* Flex with 2 columns */}
-      <div className="flex flex-col sm:flex-row gap-2 sm:gap-10">
+
+      {/* Flex with 2 equal columns */}
+      <div className="flex flex-col sm:flex-row gap-2 sm:gap-10 w-full sm:h-full">
         {/* Left column */}
-        <div className="flex flex-1 flex-col gap-5">
+        <div className="flex flex-1 flex-col gap-5 sm:h-full">
           <Introduction />
           <Skills stack={stack} title />
+        </div>
+        {/* Right column */}
+        <div className="flex flex-1 flex-col gap-5 sm:h-full justify-between">
           <Skills stack={backendTechnologies} />
           <Skills stack={tonTelegram} />
-        </div>{" "}
-        {/* Right column */}
-        <div className="flex flex-1 flex-col ">
-          <div id="contact">
+          <div id="contact" className="mt-auto">
             <h2 className="text-2xl uppercase">Contact</h2>
             <div>
               <p className="">
@@ -143,6 +149,9 @@ export default function About() {
           </div>
         </div>
       </div>
+
+      {/* Empty div for balance */}
+      <div className="h-[1px]"></div>
     </div>
   );
 }
