@@ -1,6 +1,7 @@
-import "./globals.css";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import "../globals.css";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import InteractiveBackground from "../components/InteractiveBackground";
 import { poppins } from "@/app/utils/fonts";
 
 const classCombiner = (...classes: (string | undefined)[]) =>
@@ -8,18 +9,18 @@ const classCombiner = (...classes: (string | undefined)[]) =>
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
     <html lang="en">
       <body
         className={classCombiner(
           poppins.className,
-          "flex flex-col text-nile-500 bg-nile-950 "
+          "flex flex-col text-nile-500 bg-nile-950 relative"
         )}
       >
-        {/* <CanvasAnimation /> */}
+        <InteractiveBackground />
         <Header />
         {children}
         <Footer />

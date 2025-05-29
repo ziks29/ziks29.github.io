@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 // Text variables
 const hello = "Welcome ";
-const hText = "My name is ";
+const hText = "Turning ideas into reality. — ";
 const name = "Artem Ushpuras.";
 const heroBegin = "Perfecting ";
 const heroMiddle = [
@@ -22,14 +22,15 @@ const heroMiddle = [
   "every detail ",
 ];
 const heroEnd = "to bring your ideas to life.";
-const speed = 0.075;
+const speed = 0.05;
 
 export default function Hero() {
-  const [isFirstRender, setIsFirstRender] = useState(true);
+  // Function to handle when the name animation is complete
+
   return (
-    <div className="container h-[calc(100dvh-80px)] flex flex-col justify-center">
+    <div className="container h-[calc(100dvh-80px)] flex flex-col justify-center px-4 sm:px-6 lg:px-8">
       {/* Greeting Line with waving hand */}
-      <h2 className="text-3xl mb-4 flex items-center">
+      <h2 className="text-xl sm:text-2xl lg:text-3xl mb-2 flex items-center">
         {hello.split("").map((char, index) => (
           <motion.span
             key={index + "hello"}
@@ -68,7 +69,7 @@ export default function Hero() {
       </h2>
 
       {/* Main Title */}
-      <h1 className="text text-[50px]">
+      <h1 className="text text-[28px] sm:text-[36px] lg:text-[50px] leading-tight">
         {/* Typing animation */}
         {hText.split("").map((char, index) => (
           <motion.span
@@ -101,7 +102,29 @@ export default function Hero() {
       </h1>
 
       {/* Secondary Text with Animated Words */}
-      <SecondText className="text-3xl h-40 mt-4" />
+      <SecondText className="text-lg sm:text-2xl lg:text-3xl h-32 sm:h-36 lg:h-40 mt-2" />
+
+      {/* CTA Button */}
+      <AnimatePresence>
+        <motion.div
+          className="mt-6 sm:mt-8"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            duration: 0.5,
+            delay:
+              hText.length * speed + hello.length * speed + name.length * speed,
+          }}
+        >
+          <a
+            href="#contact"
+            className="inline-block bg-nile-300 text-slate-900 font-medium py-2 px-4 sm:py-3 sm:px-6 rounded-lg hover:bg-nile-400 transition-all duration-300 hover:scale-105 text-sm sm:text-base"
+          >
+            {CtaText}
+          </a>
+        </motion.div>
+      </AnimatePresence>
+      {/* Bottom Line */}
     </div>
   );
 }
@@ -185,8 +208,4 @@ function SecondText({ className = "" }) {
     </h2>
   );
 }
-
-function cta() {
-  const text = "Continue to my works";
-  const contact = "Contact me"; // Emoji with face
-}
+const CtaText = "Let's build something great together.";

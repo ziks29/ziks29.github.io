@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 const urls = {
   Home: "/",
@@ -12,24 +12,33 @@ const urls = {
 
 export default function Header() {
   const router = useRouter();
+  const pathname = usePathname();
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, url: string) => {
     // Only handle hash links
     if (url.startsWith("#")) {
       e.preventDefault();
 
-      const element = document.getElementById(url.substring(1));
-      if (element) {
-        element.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
+      const targetId = url.substring(1);
+
+      // Check if we're on the home page
+      if (pathname === "/") {
+        // We're on home page, scroll directly to the element
+        const element = document.getElementById(targetId);
+        if (element) {
+          element.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }
+      } else {
+        // We're on a different page, navigate to home with hash
+        router.push(`/${url}`);
       }
     }
   };
-
   return (
-    <header className="container flex justify-center sm:justify-end items-center h-20">
+    <header className="container flex justify-center sm:justify-end items-center h-20 relative z-10">
       <div className="flex flex-wrap gap-x-10 gap-y-2 text-base sm:text-xl">
         {Object.entries(urls).map(([name, url]) => (
           <Link

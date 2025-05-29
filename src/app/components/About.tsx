@@ -115,26 +115,31 @@ export default function About() {
           <Skills stack={stack} title />
           <Skills stack={backendTechnologies} />
           <Skills stack={tonTelegram} />
-        </div>
+        </div>{" "}
         {/* Right column */}
         <div className="flex flex-1 flex-col ">
-          <h2 className="text-2xl uppercase">Contact</h2>
-          <div>
-            <p className="">
-              Telegram:{" "}
-              <a
-                className="hover:text-nile-100  "
-                href="https://t.me/m/0v199G8VNDc0"
-              >
-                @ziks0
-              </a>
-            </p>
-            <p className="">
-              Email:{" "}
-              <a className="hover:text-nile-100" href="mailto:ziks29@gmail.com">
-                ziks29@gmail.com
-              </a>
-            </p>
+          <div id="contact">
+            <h2 className="text-2xl uppercase">Contact</h2>
+            <div>
+              <p className="">
+                Telegram:{" "}
+                <a
+                  className="hover:text-nile-100  "
+                  href="https://t.me/m/0v199G8VNDc0"
+                >
+                  @ziks0
+                </a>
+              </p>
+              <p className="">
+                Email:{" "}
+                <a
+                  className="hover:text-nile-100"
+                  href="mailto:ziks29@gmail.com"
+                >
+                  ziks29@gmail.com
+                </a>
+              </p>
+            </div>
           </div>
         </div>
       </div>

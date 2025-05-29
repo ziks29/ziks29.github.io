@@ -3,6 +3,7 @@ import { motion } from "motion/react";
 import Link from "next/link";
 import { josefin } from "../utils/fonts";
 import { ArrowUpRight, Github } from "lucide-react";
+import Image from "next/image";
 
 // Project data array
 const projects = [
@@ -20,100 +21,100 @@ const projects = [
       "Stripe API",
       "Tailwind CSS",
     ],
-    image: "/projects/ecommerce.jpg",
-    github: "https://github.com/ziks29/ecommerce-platform",
-    demo: "https://ecommerce-demo.example.com",
+    image: "/projects/ecommerce.png",
+    github: undefined,
+    demo: "/ecommerce",
   },
-  {
-    id: 2,
-    title: "Social Media Dashboard",
-    description:
-      "A social media analytics dashboard that integrates with multiple APIs to provide comprehensive metrics and visualizations.",
-    technologies: [
-      "React",
-      "TypeScript",
-      "D3.js",
-      "Node.js",
-      "GraphQL",
-      "Firebase",
-      "Material-UI",
-    ],
-    image: "/projects/social-dashboard.jpg",
-    github: "https://github.com/ziks29/social-dashboard",
-    demo: "https://social-dashboard.example.com",
-  },
-  {
-    id: 3,
-    title: "TON Blockchain Wallet",
-    description:
-      "A secure wallet application for the TON blockchain with transaction history, staking capabilities, and Telegram Mini App integration.",
-    technologies: [
-      "Telegram Mini Apps",
-      "TON Smart Contracts",
-      "Tact",
-      "React",
-      "TypeScript",
-      "tma.js",
-      "Next.js",
-    ],
-    image: "/projects/ton-wallet.jpg",
-    github: "https://github.com/ziks29/ton-wallet",
-    demo: "https://t.me/ton_wallet_example_bot",
-  },
-  {
-    id: 4,
-    title: "Real-time Chat Application",
-    description:
-      "A scalable real-time chat application with private/group messaging, file sharing, and message encryption.",
-    technologies: [
-      "React",
-      "Socket.io",
-      "Node.js",
-      "Express",
-      "MongoDB",
-      "Redis",
-      "Docker",
-    ],
-    image: "/projects/chat-app.jpg",
-    github: "https://github.com/ziks29/realtime-chat",
-    demo: "https://realtime-chat.example.com",
-  },
-  {
-    id: 5,
-    title: "Project Management System",
-    description:
-      "A comprehensive project management tool with task tracking, time management, team collaboration, and reporting features.",
-    technologies: [
-      "Next.js",
-      "TypeScript",
-      "NestJS",
-      "PostgreSQL",
-      "Prisma",
-      "Docker",
-      "AWS",
-    ],
-    image: "/projects/project-management.jpg",
-    github: "https://github.com/ziks29/project-management",
-    demo: "https://project-management.example.com",
-  },
-  {
-    id: 6,
-    title: "Content Management System",
-    description:
-      "A flexible CMS with customizable content types, user roles, and a headless API for frontend integration.",
-    technologies: [
-      "React",
-      "GraphQL",
-      "Node.js",
-      "MongoDB",
-      "Express",
-      "AWS S3",
-      "JWT Authentication",
-    ],
-    image: "/projects/cms.jpg",
-    github: "https://github.com/ziks29/custom-cms",
-    demo: "https://custom-cms.example.com",
-  },
+  // {
+  //   id: 2,
+  //   title: "Social Media Dashboard",
+  //   description:
+  //     "A social media analytics dashboard that integrates with multiple APIs to provide comprehensive metrics and visualizations.",
+  //   technologies: [
+  //     "React",
+  //     "TypeScript",
+  //     "D3.js",
+  //     "Node.js",
+  //     "GraphQL",
+  //     "Firebase",
+  //     "Material-UI",
+  //   ],
+  //   image: "/projects/social-dashboard.jpg",
+  //   github: "https://github.com/ziks29/social-dashboard",
+  //   demo: "https://social-dashboard.example.com",
+  // },
+  // {
+  //   id: 3,
+  //   title: "TON Blockchain Wallet",
+  //   description:
+  //     "A secure wallet application for the TON blockchain with transaction history, staking capabilities, and Telegram Mini App integration.",
+  //   technologies: [
+  //     "Telegram Mini Apps",
+  //     "TON Smart Contracts",
+  //     "Tact",
+  //     "React",
+  //     "TypeScript",
+  //     "tma.js",
+  //     "Next.js",
+  //   ],
+  //   image: "/projects/ton-wallet.jpg",
+  //   github: "https://github.com/ziks29/ton-wallet",
+  //   demo: "https://t.me/ton_wallet_example_bot",
+  // },
+  // {
+  //   id: 4,
+  //   title: "Real-time Chat Application",
+  //   description:
+  //     "A scalable real-time chat application with private/group messaging, file sharing, and message encryption.",
+  //   technologies: [
+  //     "React",
+  //     "Socket.io",
+  //     "Node.js",
+  //     "Express",
+  //     "MongoDB",
+  //     "Redis",
+  //     "Docker",
+  //   ],
+  //   image: "/projects/chat-app.jpg",
+  //   github: "https://github.com/ziks29/realtime-chat",
+  //   demo: "https://realtime-chat.example.com",
+  // },
+  // {
+  //   id: 5,
+  //   title: "Project Management System",
+  //   description:
+  //     "A comprehensive project management tool with task tracking, time management, team collaboration, and reporting features.",
+  //   technologies: [
+  //     "Next.js",
+  //     "TypeScript",
+  //     "NestJS",
+  //     "PostgreSQL",
+  //     "Prisma",
+  //     "Docker",
+  //     "AWS",
+  //   ],
+  //   image: "/projects/project-management.jpg",
+  //   github: "https://github.com/ziks29/project-management",
+  //   demo: "https://project-management.example.com",
+  // },
+  // {
+  //   id: 6,
+  //   title: "Content Management System",
+  //   description:
+  //     "A flexible CMS with customizable content types, user roles, and a headless API for frontend integration.",
+  //   technologies: [
+  //     "React",
+  //     "GraphQL",
+  //     "Node.js",
+  //     "MongoDB",
+  //     "Express",
+  //     "AWS S3",
+  //     "JWT Authentication",
+  //   ],
+  //   image: "/projects/cms.jpg",
+  //   github: "https://github.com/ziks29/custom-cms",
+  //   demo: "https://custom-cms.example.com",
+  // },
 ];
 
 // Project Card Component
@@ -133,12 +134,12 @@ const ProjectCard = ({
     >
       <div className="relative h-48 overflow-hidden bg-nile-900/20">
         {/* If you have actual project images, you can uncomment this */}
-        {/* <Image 
-          src={project.image} 
-          alt={project.title} 
-          fill 
+        <Image
+          src={project.image}
+          alt={project.title}
+          fill
           className="object-cover group-hover:scale-105 transition-transform duration-500"
-        /> */}
+        />
 
         {/* Placeholder gradient design */}
         <div className="absolute inset-0 bg-gradient-radial-at-tr from-nile-800/30 via-nile-900/20 to-transparent"></div>
@@ -175,16 +176,6 @@ const ProjectCard = ({
 
         <div className="flex justify-between mt-4 pt-3 border-t border-nile-900/40">
           <Link
-            href={project.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center text-nile-400 hover:text-nile-300 transition-colors"
-          >
-            <Github className="w-4 h-4 mr-1" />
-            <span className="text-sm">Code</span>
-          </Link>
-
-          <Link
             href={project.demo}
             target="_blank"
             rel="noopener noreferrer"
@@ -193,6 +184,17 @@ const ProjectCard = ({
             <span className="text-sm">Live Demo</span>
             <ArrowUpRight className="w-4 h-4 ml-1" />
           </Link>
+          {project.github && (
+            <Link
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center text-nile-400 hover:text-nile-300 transition-colors"
+            >
+              <Github className="w-4 h-4 mr-1" />
+              <span className="text-sm">Code</span>
+            </Link>
+          )}
         </div>
       </div>
     </motion.div>
