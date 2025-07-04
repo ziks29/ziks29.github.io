@@ -95,7 +95,6 @@ export default function InteractiveBackground() {
   // Handle touch events
   const handleTouchMove = useCallback(
     (e: TouchEvent) => {
-      e.preventDefault();
       if (e.touches.length > 0) {
         handleInteraction(e.touches[0].clientX, e.touches[0].clientY);
       }
@@ -239,8 +238,8 @@ export default function InteractiveBackground() {
 
     // Add event listeners
     window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("touchmove", handleTouchMove, { passive: false });
-    window.addEventListener("touchstart", handleTouchStart, { passive: false });
+    window.addEventListener("touchmove", handleTouchMove, { passive: true });
+    window.addEventListener("touchstart", handleTouchStart, { passive: true });
     window.addEventListener("scroll", handleScroll, { passive: true });
 
     // Start animation loop

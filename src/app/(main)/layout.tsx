@@ -17,7 +17,7 @@ export default function RootLayout({
       <body
         className={classCombiner(
           poppins.className,
-          "flex flex-col text-nile-500 bg-nile-950 relative"
+          "flex flex-col text-nile-500 bg-nile-950 relative overflow-x-hidden"
         )}
       >
         <InteractiveBackground />

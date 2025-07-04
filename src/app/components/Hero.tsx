@@ -28,7 +28,7 @@ export default function Hero() {
   // Function to handle when the name animation is complete
 
   return (
-    <div className="container h-[calc(100dvh-80px)] flex flex-col justify-center px-4 sm:px-6 lg:px-8">
+    <div className="container h-[calc(100vh-80px)] flex flex-col justify-center px-4 sm:px-6 lg:px-8">
       {/* Greeting Line with waving hand */}
       <h2 className="text-xl sm:text-2xl lg:text-3xl mb-2 flex items-center">
         {hello.split("").map((char, index) => (

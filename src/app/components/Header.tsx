@@ -6,7 +6,8 @@ const urls = {
   Home: "/",
   About: "#about",
   Projects: "#projects",
-  Blog: "/blog",
+  Offers: "#offers",
+  Blog: "https://t.me/ziks0blog",
   Contact: "#contact",
 };
 
@@ -15,7 +16,7 @@ export default function Header() {
   const pathname = usePathname();
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, url: string) => {
-    // Only handle hash links
+    // Only handle hash links for internal navigation
     if (url.startsWith("#")) {
       e.preventDefault();
 
@@ -36,6 +37,7 @@ export default function Header() {
         router.push(`/${url}`);
       }
     }
+    // For external links (like https://...), let the default behavior handle it
   };
   return (
     <header className="container flex justify-center sm:justify-end items-center h-20 relative z-10">

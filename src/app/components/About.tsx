@@ -50,7 +50,7 @@ const tonTelegram = [
 const Introduction = () => {
   return (
     <div>
-      <h2 className="text-2xl uppercase">About</h2>
+      <h2 className="text-2xl uppercase mb-2">About</h2>
       <p className=" text-justify">
         Web development is my <span>lifestyle</span>. I breathe code and live
         design. My work fuses cutting-edge tech with intuitive interfaces,
@@ -71,7 +71,7 @@ const Skills = ({
 }) => {
   return (
     <div>
-      <h2 className="text-2xl uppercase">{title ? "Skills" : ""} </h2>
+      <h2 className="text-2xl mb-2 uppercase">{title ? "Skills" : ""} </h2>
       <div className="">
         <h3 className="text-xl text-nile-300">
           {stack === backendTechnologies
@@ -105,7 +105,7 @@ export default function About() {
     <div
       ref={ref}
       id="about"
-      className="container flex flex-col items-center justify-between py-10   min-h-[calc(100dvh-40px)] space-y-4"
+      className="container flex flex-col items-center justify-between py-10   min-h-[calc(100vh-40px)] space-y-4"
     >
       {/* Span divider */}
       <motion.span
@@ -125,7 +125,7 @@ export default function About() {
           <Skills stack={backendTechnologies} />
           <Skills stack={tonTelegram} />
           <div id="contact" className="mt-auto">
-            <h2 className="text-2xl uppercase">Contact</h2>
+            <h2 className="text-2xl uppercase mb-2">Contact</h2>
             <div>
               <p className="">
                 Telegram:{" "}

@@ -36,7 +36,7 @@ export default function ProductCard({
           alt={product.name}
           width={400}
           height={256}
-          className="w-full h-64 object-cover transition-transform duration-200 hover:scale-105"
+          className="w-full h-64 object-contain transition-transform duration-200 hover:scale-105"
         />
         <button
           onClick={() => onToggleWishlist(product.id)}
