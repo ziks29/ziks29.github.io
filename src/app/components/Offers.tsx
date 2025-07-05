@@ -2,6 +2,8 @@
 
 import { Smartphone, Bot, Globe, Settings, ArrowUpRight } from "lucide-react";
 import { motion } from "motion/react";
+import { useState } from "react";
+import ContactModal from "./ContactModal";
 
 const offers = [
   {
@@ -41,6 +43,8 @@ const offers = [
 ];
 
 export default function Offers() {
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+
   return (
     <div
       id="offers"
@@ -84,7 +88,7 @@ export default function Offers() {
           const getInitialAnimation = () => {
             // On mobile (single column): alternate left/right
             // On desktop: slide from corners and sides
-            if (window.innerWidth < 768) {
+            if (typeof window !== "undefined" && window.innerWidth < 768) {
               return {
                 opacity: 0,
                 x: index % 2 === 0 ? -100 : 100,
@@ -233,35 +237,21 @@ export default function Offers() {
           stiffness: 100,
         }}
       >
-        <motion.button
-          className="flex items-center justify-center gap-2 bg-nile-900/50 hover:bg-nile-800/50 text-nile-300 hover:text-nile-200 px-8 py-3 rounded-lg transition-all duration-300 hover:scale-105 border border-nile-800/50 hover:border-nile-700/50"
-          whileHover={{
-            scale: 1.05,
-            boxShadow: "0 10px 30px rgba(0,0,0,0.3)",
-            y: -2,
-          }}
-          whileTap={{ scale: 0.95 }}
-          transition={{ type: "spring", stiffness: 300, damping: 20 }}
+        <button
+          onClick={() => setIsContactModalOpen(true)}
+          className="flex items-center justify-center gap-2 bg-nile-900/50 hover:bg-nile-800/50 text-nile-300 hover:text-nile-200 px-8 py-3 rounded-lg transition-all duration-300 border border-nile-800/50 hover:border-nile-700/50 active:scale-95 transform"
         >
-          <motion.span
-            className="text-base font-medium"
-            whileHover={{ x: -2 }}
-            transition={{ duration: 0.2 }}
-          >
+          <span className="text-base font-medium">
             Let&apos;s Discuss Your Project
-          </motion.span>
-          <motion.div
-            whileHover={{
-              rotate: 45,
-              x: 2,
-              y: -2,
-            }}
-            transition={{ duration: 0.2 }}
-          >
-            <ArrowUpRight className="w-5 h-5" />
-          </motion.div>
-        </motion.button>
+          </span>
+          <ArrowUpRight className="w-5 h-5" />
+        </button>
       </motion.div>
+
+      <ContactModal
+        isOpen={isContactModalOpen}
+        onClose={() => setIsContactModalOpen(false)}
+      />
     </div>
   );
 }

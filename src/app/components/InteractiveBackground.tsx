@@ -112,7 +112,9 @@ export default function InteractiveBackground() {
 
   // Handle scroll events
   const handleScroll = useCallback(() => {
-    setScrollY(window.scrollY);
+    if (typeof window !== "undefined") {
+      setScrollY(window.scrollY);
+    }
   }, []);
   // Animation loop
   const animate = useCallback(() => {
@@ -207,6 +209,8 @@ export default function InteractiveBackground() {
 
   // Handle window resize
   useEffect(() => {
+    if (typeof window === "undefined") return;
+    
     const handleResize = () => {
       const width = window.innerWidth;
       const height = window.innerHeight;
@@ -233,6 +237,8 @@ export default function InteractiveBackground() {
   }, [initializeLines]);
   // Setup event listeners and start animation
   useEffect(() => {
+    if (typeof window === "undefined") return;
+    
     const canvas = canvasRef.current;
     if (!canvas) return;
 
