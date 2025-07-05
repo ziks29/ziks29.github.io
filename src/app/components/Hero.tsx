@@ -117,7 +117,7 @@ export default function Hero() {
           }}
         >
           <a
-            href="#contact"
+            href="#offers"
             className="inline-block bg-nile-300 text-slate-900 font-medium py-2 px-4 sm:py-3 sm:px-6 rounded-lg hover:bg-nile-400 transition-all duration-300 hover:scale-105 text-sm sm:text-base"
           >
             {CtaText}

@@ -3,11 +3,9 @@ import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 
 const urls = {
-  Home: "/",
-  About: "#about",
   Projects: "#projects",
-  Offers: "#offers",
-  Blog: "https://t.me/ziks0blog",
+  GitHub: "#github",
+  Blog: "https://t.me/ziksblog",
   Contact: "#contact",
 };
 

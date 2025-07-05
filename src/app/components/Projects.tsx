@@ -37,7 +37,7 @@ const projects: Project[] = [
     ],
     image: "/projects/n9xo.jpg",
     imageStyle: "object-cover" as "object-cover" | "object-contain",
-    demo: "https://social-dashboard.example.com",
+    demo: "https://n9xo.xyz",
     demoText: "Live App",
   },
   {

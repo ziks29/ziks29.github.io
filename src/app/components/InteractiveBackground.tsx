@@ -210,7 +210,7 @@ export default function InteractiveBackground() {
   // Handle window resize
   useEffect(() => {
     if (typeof window === "undefined") return;
-    
+
     const handleResize = () => {
       const width = window.innerWidth;
       const height = window.innerHeight;
@@ -238,7 +238,7 @@ export default function InteractiveBackground() {
   // Setup event listeners and start animation
   useEffect(() => {
     if (typeof window === "undefined") return;
-    
+
     const canvas = canvasRef.current;
     if (!canvas) return;
 
