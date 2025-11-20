@@ -91,6 +91,26 @@ const projects: Project[] = [
     demo: "/luxuria",
     demoText: "Live Demo",
   },
+  {
+    id: 5,
+    title: "CodeGreen",
+    description:
+      "An interactive FiveM roleplay site featuring horizontal slide navigation, photo galleries, lazy loading, and real-time server status — built for performance and rich presentation.",
+    technologies: [
+      "React",
+      "TypeScript",
+      "Vite",
+      "Tailwind CSS",
+      "Framer Motion",
+      "PhotoSwipe",
+      "pnpm",
+    ],
+    image: "/projects/codegreen.png",
+    imageStyle: "object-contain",
+    github: "",
+    demo: "https://ziks29.github.io/codegreen-site/",
+    demoText: "Live Site",
+  },
 ];
 
 // Project Card Component
@@ -190,9 +210,27 @@ export default function Projects() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
-        {projects.map((project, index) => (
-          <ProjectCard key={project.id} project={project} index={index} />
-        ))}
+        {projects.map((project, index) => {
+          const isLastOdd =
+            index === projects.length - 1 && projects.length % 2 === 1;
+
+          if (isLastOdd) {
+            return (
+              <div
+                key={project.id}
+                className="md:col-span-2 flex justify-center"
+              >
+                <div className="w-full md:max-w-[calc(50%_-_0.75rem)]">
+                  <ProjectCard project={project} index={index} />
+                </div>
+              </div>
+            );
+          }
+
+          return (
+            <ProjectCard key={project.id} project={project} index={index} />
+          );
+        })}
       </div>
     </div>
   );

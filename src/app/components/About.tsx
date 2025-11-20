@@ -8,7 +8,10 @@ const stack = [
   "HTML5",
   "CSS3",
   "TypeScript",
+  "i18n (website localization)",
   "Tailwind CSS",
+  "Figma",
+  "Design",
   "Bootstrap",
   "Material-UI",
   "Chakra UI",
@@ -24,6 +27,7 @@ const backendTechnologies: string[] = [
   "Express",
   "Next.js",
   "NestJS",
+  "ADK (Agent Development Kit)",
   "GraphQL",
   "REST APIs",
   "MongoDB",
@@ -35,7 +39,7 @@ const backendTechnologies: string[] = [
   "Kubernetes",
   "AWS",
   "Nginx",
-  "Java",
+  "Go",
   "Python",
 ];
 

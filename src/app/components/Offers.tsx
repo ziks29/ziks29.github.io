@@ -1,6 +1,13 @@
 "use client";
 
-import { Smartphone, Bot, Globe, Settings, ArrowUpRight } from "lucide-react";
+import {
+  Smartphone,
+  Bot,
+  Globe,
+  Settings,
+  ArrowUpRight,
+  Cpu,
+} from "lucide-react";
 import { motion } from "motion/react";
 import { useState } from "react";
 import ContactModal from "./ContactModal";
@@ -25,11 +32,21 @@ const offers = [
     ],
   },
   {
+    icon: Cpu,
+    title: "AI Agents",
+    items: [
+      "Single & Multi-Agent Systems — Autonomous agents for businesses, apps, or websites.",
+      "Customer-facing Assistants — Analyze data and converse with your users to help, upsell, or support.",
+      "Agent Development Kit (ADK) — Agent orchestration, tooling and deployment to speed up delivery.",
+    ],
+  },
+  {
     icon: Globe,
     title: "Web & Platforms",
     items: [
       "Landing Pages — Clean, fast-loading, mobile-first websites to showcase your product or idea.",
       "Fullstack Platforms — Admin dashboards, user systems, and complete business logic for SaaS and e-commerce.",
+      "i18n Translations — Fast, professional translations for any website using i18n to deliver localized, maintainable content.",
     ],
   },
   {
@@ -44,6 +61,7 @@ const offers = [
 
 export default function Offers() {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
     <div
@@ -80,7 +98,7 @@ export default function Offers() {
         </motion.p>
       </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-5 gap-6">
         {offers.map((offer, index) => {
           const IconComponent = offer.icon;
 
@@ -103,10 +121,11 @@ export default function Offers() {
                 { x: 150, y: -50, rotate: 10 }, // Top-right
                 { x: -150, y: 50, rotate: -8 }, // Bottom-left
                 { x: 150, y: 50, rotate: 8 }, // Bottom-right
+                { x: 0, y: 80, rotate: 0 }, // Center-bottom (for 5th)
               ];
               return {
                 opacity: 0,
-                ...directions[index % 4],
+                ...directions[index % 5],
                 scale: 0.7,
               };
             }
@@ -115,7 +134,9 @@ export default function Offers() {
           return (
             <motion.div
               key={offer.title}
-              className="flex flex-col h-full bg-nile-950 border border-nile-900 rounded-lg overflow-hidden hover:shadow-lg hover:shadow-nile-900/20 p-6 group"
+              className={`flex flex-col h-full bg-nile-950 border border-nile-900 rounded-lg overflow-hidden hover:shadow-lg hover:shadow-nile-900/20 p-6 group ${
+                index === 4 ? "lg:col-span-2 lg:max-w-md lg:mx-auto xl:col-span-1" : ""
+              }`}
               initial={getInitialAnimation()}
               whileInView={{
                 opacity: 1,
@@ -142,6 +163,8 @@ export default function Offers() {
                   ease: "easeOut",
                 },
               }}
+              onMouseEnter={() => setHoveredIndex(index)}
+              onMouseLeave={() => setHoveredIndex(null)}
             >
               <motion.div
                 className="text-center mb-6"
@@ -156,11 +179,13 @@ export default function Offers() {
               >
                 <motion.div
                   className="flex justify-center mb-3"
-                  whileHover={{
-                    rotate: [0, -10, 10, 0],
-                    scale: 1.1,
-                    transition: { duration: 0.5 },
-                  }}
+                  initial={{ rotate: 0, scale: 1 }}
+                  animate={
+                    hoveredIndex === index
+                      ? { rotate: [0, -10, 10, 0], scale: 1.1 }
+                      : { rotate: 0, scale: 1 }
+                  }
+                  transition={{ duration: 0.5 }}
                 >
                   <IconComponent
                     size={40}
