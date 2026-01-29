@@ -62,10 +62,10 @@ const projects: Project[] = [
     demoText: "Live App",
   },
   {
-    id: 3,
+    id: 998,
     title: "ModernShop",
     description:
-      "A full-featured e-commerce platform with product catalog, cart functionality, payment processing, and admin dashboard.",
+      "Basic template for an e-commerce platform with product catalog, cart functionality, payment processing, and admin dashboard.",
     technologies: [
       "Next.js",
       "React",
@@ -81,10 +81,10 @@ const projects: Project[] = [
     demoText: "Live Demo",
   },
   {
-    id: 4,
+    id: 999,
     title: "Luxuria",
     description:
-      "A premium hotel website with elegant design, dark mode, mobile-first responsiveness, and smooth animations to elevate brand image and boost bookings.",
+      "Basic template for a premium hotel website with elegant design, dark mode, mobile-first responsiveness, and smooth animations.",
     technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Vercel"],
     image: "/projects/luxuria.png",
     imageStyle: "object-cover",
@@ -110,6 +110,45 @@ const projects: Project[] = [
     github: "",
     demo: "https://ziks29.github.io/codegreen-site/",
     demoText: "Live Site",
+  },
+  {
+    id: 6,
+    title: "Blaine County News",
+    description:
+      "A roleplay-focused news platform with a robust admin ecosystem for managing the entire publication business. Features a dedicated financial dashboard for revenue analytics, an integrated order processing system, and a dynamic custom CMS for publishing articles and ads.",
+    technologies: [
+      "Next.js",
+      "TypeScript",
+      "TailwindCSS",
+      "Prisma",
+      "PostgreSQL",
+      "NextAuth.js",
+      "Google Gemini",
+      "Lucide React",
+    ],
+    image: "/projects/bcn.png",
+    imageStyle: "object-contain",
+    demo: "https://blainenews.n9xo.xyz",
+    demoText: "Live Site",
+  },
+  {
+    id: 7,
+    title: "Autonomous Telegram Blogger",
+    description:
+      "A multi-agent system that researches topics, drafts posts, enforces a consistent writing style, and publishes to a Telegram channel automatically. It turns “idea → verified sources → polished post” into a repeatable pipeline, reducing manual content creation while improving quality and consistency.",
+    technologies: [
+      "Python",
+      "Google Gemini API",
+      "LangGraph",
+      "LangChain",
+      "Telegram Bot API",
+      "Docker",
+      "GitHub Actions",
+    ],
+    image: "/projects/aitg.png",
+    imageStyle: "object-cover",
+    demo: "https://www.kaggle.com/competitions/agents-intensive-capstone-project/writeups/autonomous-telegram-blogger",
+    demoText: "View Writeup",
   },
 ];
 
@@ -210,27 +249,29 @@ export default function Projects() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
-        {projects.map((project, index) => {
-          const isLastOdd =
-            index === projects.length - 1 && projects.length % 2 === 1;
+        {projects
+          .sort((a, b) => a.id - b.id)
+          .map((project, index) => {
+            const isLastOdd =
+              index === projects.length - 1 && projects.length % 2 === 1;
 
-          if (isLastOdd) {
-            return (
-              <div
-                key={project.id}
-                className="md:col-span-2 flex justify-center"
-              >
-                <div className="w-full md:max-w-[calc(50%_-_0.75rem)]">
-                  <ProjectCard project={project} index={index} />
+            if (isLastOdd) {
+              return (
+                <div
+                  key={project.id}
+                  className="md:col-span-2 flex justify-center"
+                >
+                  <div className="w-full md:max-w-[calc(50%_-_0.75rem)]">
+                    <ProjectCard project={project} index={index} />
+                  </div>
                 </div>
-              </div>
-            );
-          }
+              );
+            }
 
-          return (
-            <ProjectCard key={project.id} project={project} index={index} />
-          );
-        })}
+            return (
+              <ProjectCard key={project.id} project={project} index={index} />
+            );
+          })}
       </div>
     </div>
   );
