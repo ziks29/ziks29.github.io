@@ -132,6 +132,28 @@ const projects: Project[] = [
     demoText: "Live Site",
   },
   {
+    id: 8,
+    title: "TonDesk",
+    description:
+      "A Telegram Mini App for deploying TON-connected AI bots from a custom knowledge base. Connect a wallet, upload knowledge, deploy a bot, and fund usage with TON — no infrastructure setup needed.",
+    technologies: [
+      "Telegram Mini Apps",
+      "TON Connect",
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Prisma",
+      "SQLite",
+      "OpenRouter",
+      "Docker",
+    ],
+    image: "/projects/tondesk.png",
+    imageStyle: "object-cover" as "object-cover" | "object-contain",
+    github: "https://github.com/ziks29/tondesk",
+    demo: "https://tondesk.n9xo.xyz/web",
+    demoText: "Live App",
+  },
+  {
     id: 7,
     title: "Autonomous Telegram Blogger",
     description:
