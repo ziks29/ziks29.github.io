@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pavasara Pazīmes 🌸</title>
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --sky: #b8f0ff;
+    --grass: #6ecb3c;
+    --sun: #ffd93d;
+    --pink: #ff8fab;
+    --lilac: #c77dff;
+    --orange: #ff9f1c;
+    --white: #fffef7;
+    --correct: #4CAF50;
+    --wrong: #f44336;
+  }
+
+  body {
+    font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Sans', cursive;
+    background: linear-gradient(180deg, var(--sky) 0%, #d4f5a0 60%, var(--grass) 100%);
+    min-height: 100vh;
+    overflow-x: hidden;
+    user-select: none;
+  }
+
+  /* Floating clouds */
+  .cloud {
+    position: fixed;
+    background: white;
+    border-radius: 50px;
+    opacity: 0.85;
+    animation: drift linear infinite;
+    z-index: 0;
+  }
+  .cloud::before, .cloud::after {
+    content: '';
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+  }
+  .cloud-1 { width: 120px; height: 40px; top: 8%; left: -140px; animation-duration: 28s; animation-delay: 0s; }
+  .cloud-1::before { width: 60px; height: 60px; top: -30px; left: 15px; }
+  .cloud-1::after  { width: 45px; height: 45px; top: -20px; left: 50px; }
+  .cloud-2 { width: 90px;  height: 30px; top: 18%; left: -110px; animation-duration: 22s; animation-delay: 8s; }
+  .cloud-2::before { width: 45px; height: 45px; top: -22px; left: 10px; }
+  .cloud-2::after  { width: 35px; height: 35px; top: -14px; left: 38px; }
+  .cloud-3 { width: 150px; height: 50px; top: 5%;  left: -170px; animation-duration: 35s; animation-delay: 15s; }
+  .cloud-3::before { width: 75px; height: 75px; top: -38px; left: 20px; }
+  .cloud-3::after  { width: 55px; height: 55px; top: -25px; left: 65px; }
+  @keyframes drift { from { left: -200px; } to { left: 110vw; } }
+
+  /* Grass & flowers at bottom */
+  .ground {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    height: 80px;
+    background: var(--grass);
+    border-radius: 60% 60% 0 0 / 30px 30px 0 0;
+    z-index: 0;
+  }
+  .flowers {
+    position: fixed;
+    bottom: 60px; left: 0; right: 0;
+    display: flex;
+    justify-content: space-around;
+    z-index: 1;
+    padding: 0 20px;
+    pointer-events: none;
+  }
+  .flower { font-size: 28px; animation: sway 3s ease-in-out infinite; }
+  .flower:nth-child(2n) { animation-delay: 0.5s; }
+  .flower:nth-child(3n) { animation-delay: 1s; }
+  @keyframes sway { 0%,100%{transform:rotate(-8deg)} 50%{transform:rotate(8deg)} }
+
+  /* Sun */
+  .sun {
+    position: fixed;
+    top: 18px; right: 24px;
+    font-size: 60px;
+    animation: spin 12s linear infinite;
+    z-index: 0;
+    filter: drop-shadow(0 0 12px #ffd93d88);
+  }
+  @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+
+  /* Main layout */
+  .container {
+    position: relative;
+    z-index: 2;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 18px 16px 120px;
+  }
+
+  .title-box {
+    text-align: center;
+    margin-bottom: 18px;
+    padding-top: 8px;
+  }
+  .title-box h1 {
+    font-size: clamp(2rem, 8vw, 3.2rem);
+    color: #fff;
+    text-shadow: 3px 4px 0 #5ca600, 0 0 20px rgba(255,255,255,.5);
+    line-height: 1.1;
+  }
+  .title-box p {
+    font-family: 'Trebuchet MS', 'Comic Sans MS', 'Chalkboard SE', cursive;
+    font-size: clamp(1rem, 4vw, 1.3rem);
+    color: #3a7d00;
+    margin-top: 4px;
+    font-weight: 900;
+  }
+
+  /* Score bar */
+  .score-bar {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+  .score-pill {
+    background: white;
+    border-radius: 30px;
+    padding: 6px 18px;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.12);
+    color: #444;
+  }
+  .score-pill span { color: #ff6b35; font-size: 1.4rem; }
+
+  /* Cards grid */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+
+  .card {
+    background: var(--white);
+    border-radius: 22px;
+    box-shadow: 0 6px 0 rgba(0,0,0,0.12);
+    padding: 14px 10px 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+    border: 4px solid transparent;
+    position: relative;
+    overflow: hidden;
+  }
+  .card:hover { transform: translateY(-4px) scale(1.03); }
+  .card:active { transform: scale(0.96); }
+
+  .card .emoji { font-size: clamp(2.8rem, 10vw, 4rem); display: block; line-height: 1; margin-bottom: 8px; }
+  .card .label {
+    font-family: 'Trebuchet MS', 'Comic Sans MS', 'Chalkboard SE', cursive;
+    font-weight: 900;
+    font-size: clamp(0.85rem, 3vw, 1.1rem);
+    color: #444;
+    line-height: 1.2;
+  }
+
+  .card.correct {
+    border-color: var(--correct);
+    background: #e8fce8;
+    animation: popCorrect 0.4s ease;
+  }
+  .card.wrong {
+    border-color: var(--wrong);
+    background: #ffe8e8;
+    animation: shake 0.4s ease;
+  }
+  .card.revealed {
+    border-color: #ccc;
+    opacity: 0.65;
+    pointer-events: none;
+  }
+
+  @keyframes popCorrect {
+    0%{transform:scale(1)} 40%{transform:scale(1.18)} 70%{transform:scale(0.95)} 100%{transform:scale(1)}
+  }
+  @keyframes shake {
+    0%,100%{transform:translateX(0)} 20%{transform:translateX(-10px)} 60%{transform:translateX(10px)}
+  }
+
+  /* Badge overlay */
+  .card .badge {
+    position: absolute;
+    top: 6px; right: 8px;
+    font-size: 1.5rem;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .card.correct .badge-correct { opacity: 1; }
+  .card.wrong .badge-wrong { opacity: 1; }
+  .card.revealed-wrong .badge-wrong { opacity: 1; }
+
+  /* Instruction */
+  .instruction {
+    background: white;
+    border-radius: 18px;
+    padding: 12px 18px;
+    text-align: center;
+    font-family: 'Trebuchet MS', 'Comic Sans MS', 'Chalkboard SE', cursive;
+    font-weight: 900;
+    font-size: clamp(1rem, 4vw, 1.25rem);
+    color: #3a7d00;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.10);
+    margin-bottom: 14px;
+    border: 3px dashed #a8e063;
+  }
+
+  /* Feedback popup */
+  .feedback {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%) scale(0);
+    background: white;
+    border-radius: 30px;
+    padding: 30px 40px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    z-index: 100;
+    transition: transform 0.3s cubic-bezier(.34,1.56,.64,1);
+    min-width: 260px;
+  }
+  .feedback.show { transform: translate(-50%,-50%) scale(1); }
+  .feedback .fb-emoji { font-size: 4rem; display: block; margin-bottom: 10px; }
+  .feedback .fb-text {
+    font-family: 'Trebuchet MS', 'Comic Sans MS', 'Chalkboard SE', cursive;
+    font-weight: 900;
+    font-size: 1.6rem;
+    color: #333;
+    margin-bottom: 8px;
+  }
+  .feedback .fb-sub {
+    font-family: 'Trebuchet MS', 'Comic Sans MS', 'Chalkboard SE', cursive;
+    font-size: 1rem;
+    color: #888;
+  }
+
+  /* Win screen */
+  .win-screen {
+    display: none;
+    text-align: center;
+    padding: 30px 20px;
+  }
+  .win-screen.show { display: block; }
+  .win-emoji { font-size: 5rem; display: block; animation: bounce 0.8s infinite alternate; }
+  @keyframes bounce { from{transform:translateY(0)} to{transform:translateY(-18px)} }
+  .win-title {
+    font-size: clamp(1.8rem, 7vw, 2.8rem);
+    color: #fff;
+    text-shadow: 3px 4px 0 #5ca600;
+    margin: 14px 0 6px;
+  }
+  .win-sub {
+    font-family: 'Trebuchet MS', 'Comic Sans MS', 'Chalkboard SE', cursive;
+    font-weight: 900;
+    font-size: 1.1rem;
+    color: #3a7d00;
+    margin-bottom: 24px;
+  }
+  .btn-restart {
+    background: var(--sun);
+    color: #5c3d00;
+    border: none;
+    border-radius: 50px;
+    padding: 14px 38px;
+    font-family: 'Trebuchet MS', 'Comic Sans MS', 'Chalkboard SE', cursive;
+    font-size: 1.4rem;
+    cursor: pointer;
+    box-shadow: 0 6px 0 #c9a200;
+    transition: transform 0.1s;
+  }
+  .btn-restart:active { transform: scale(0.95) translateY(3px); box-shadow: 0 3px 0 #c9a200; }
+
+  /* Confetti */
+  .confetti-piece {
+    position: fixed;
+    width: 10px; height: 14px;
+    top: -20px;
+    border-radius: 3px;
+    animation: confettiFall linear forwards;
+    z-index: 200;
+    pointer-events: none;
+  }
+  @keyframes confettiFall {
+    0%   { top: -20px; transform: rotate(0deg) translateX(0); opacity: 1; }
+    80%  { opacity: 1; }
+    100% { top: 105vh; transform: rotate(720deg) translateX(var(--drift)); opacity: 0; }
+  }
+
+  .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.3); z-index: 50; display:none; }
+  .overlay.show { display: block; }
+</style>
+</head>
+<body>
+
+<!-- Clouds -->
+<div class="cloud cloud-1"></div>
+<div class="cloud cloud-2"></div>
+<div class="cloud cloud-3"></div>
+
+<div class="sun">☀️</div>
+
+<div class="ground"></div>
+<div class="flowers">
+  <span class="flower">🌼</span>
+  <span class="flower">🌷</span>
+  <span class="flower">🌸</span>
+  <span class="flower">🌼</span>
+  <span class="flower">🌷</span>
+  <span class="flower">🌸</span>
+  <span class="flower">🌼</span>
+  <span class="flower">🌷</span>
+  <span class="flower">🌸</span>
+  <span class="flower">🌼</span>
+</div>
+
+<div class="overlay" id="overlay"></div>
+
+<!-- Feedback popup -->
+<div class="feedback" id="feedback">
+  <span class="fb-emoji" id="fb-emoji"></span>
+  <div class="fb-text" id="fb-text"></div>
+  <div class="fb-sub" id="fb-sub"></div>
+</div>
+
+<div class="container">
+  <div class="title-box">
+    <h1>🌸 Pavasaris! 🌸</h1>
+    <p>Atrod pavasara vēstnešus!</p>
+  </div>
+
+  <div class="score-bar">
+    <div class="score-pill">🌸 Līmeņi: <span id="round-display">1</span> / 4</div>
+    <div class="score-pill">✅ Pareizi: <span id="correct-count">0</span></div>
+    <div class="score-pill">❌ Kļūdas: <span id="wrong-count">0</span></div>
+  </div>
+
+  <div class="instruction" id="instruction">
+    👇 Spied uz attēliem, kas ir saistītas ar <strong>pavasari!</strong>!
+  </div>
+
+  <div class="cards-grid" id="cards-grid"></div>
+
+  <!-- Between-round screen -->
+  <div class="win-screen" id="round-screen">
+    <span class="win-emoji" id="round-emoji">🌟</span>
+    <div class="win-title" id="round-title">Pabeigts!</div>
+    <div class="win-sub" id="round-sub">Lieliski!</div>
+    <button class="btn-restart" onclick="nextRound()">➡️ Nākamais līmenis!</button>
+  </div>
+
+  <!-- Final win screen -->
+  <div class="win-screen" id="win-screen">
+    <span class="win-emoji">🏆</span>
+    <div class="win-title">Tu esi čempions!</div>
+    <div class="win-sub" id="final-sub"></div>
+    <button class="btn-restart" onclick="restart()">🔄 Spēlēt vēlreiz!</button>
+  </div>
+</div>
+
+<script>
+const ALL_SPRING = [
+  { emoji: '🌷', label: 'Tulpe',         spring: true },
+  { emoji: '🐣', label: 'Cālis izšķiļas',    spring: true },
+  { emoji: '🌱', label: 'Aug zāle',            spring: true },
+  { emoji: '🦋', label: 'Tauriņš lido',       spring: true },
+  { emoji: '🌦️', label: 'Siltais laiks',      spring: true },
+  { emoji: '🐦', label: 'Putni atgriežas',    spring: true },
+  { emoji: '🌸', label: 'Zied puķes',           spring: true },
+  { emoji: '🐸', label: 'Vardes kvakst',       spring: true },
+  { emoji: '🌈', label: 'Varavīksne',    spring: true },
+  { emoji: '🐝', label: 'Bites lido',          spring: true },
+  { emoji: '☀️', label: 'Saule silda',          spring: true },
+  { emoji: '🌧️', label: 'Lietus līst',         spring: true },
+  { emoji: '🐛', label: 'Kāpurs rāpo',         spring: true },
+  { emoji: '🌻', label: 'Saulespuķe',   spring: true },
+  { emoji: '🐇', label: 'Zaķis lec',           spring: true },
+  { emoji: '🌿', label: 'Daba kļūst zaļa',         spring: true },
+  { emoji: '🦆', label: 'Pīle peld',           spring: true },
+  { emoji: '🪺', label: 'Putnu ligzda',        spring: true },
+  { emoji: '🌾', label: 'Zieds plaukst',       spring: true },
+  { emoji: '🐞', label: 'Mārīte lido',         spring: true },
+  { emoji: '🦔', label: 'Ezis pamostas',       spring: true },
+  { emoji: '🌺', label: 'Zieds zied',          spring: true },
+  { emoji: '🍃', label: 'Lapas plaukst',       spring: true },
+  { emoji: '🐓', label: 'Gailis dzied',        spring: true },
+];
+
+const ALL_NOT_SPRING = [
+  { emoji: '⛄', label: 'Sniegavīrs',        spring: false },
+  { emoji: '🎃', label: 'Halovīna ķirbis',   spring: false },
+  { emoji: '❄️', label: 'Sals un sniegs',     spring: false },
+  { emoji: '🏖️', label: 'Pludmale',           spring: false },
+  { emoji: '🍁', label: 'Rudens lapas',       spring: false },
+  { emoji: '🎿', label: 'Slēpošana',          spring: false },
+  { emoji: '🍄', label: 'Rudens sēnes',       spring: false },
+  { emoji: '🌵', label: 'Kaktuss tuksnesī',  spring: false },
+  { emoji: '🏔️', label: 'Sniegots kalns',    spring: false },
+  { emoji: '🎄', label: 'Ziemassvētku egle', spring: false },
+  { emoji: '🌑', label: 'Auksta nakts',        spring: false },
+  { emoji: '🧊', label: 'Ledus gabals',       spring: false },
+];
+
+// Pre-deal all 36 unique cards into 4 rounds of 9 at game start
+let roundDecks = []; // array of 4 arrays, each 9 cards
+
+function buildDecks() {
+  const springShuffled = shuffle([...ALL_SPRING]);   // 24 cards
+  const notShuffled    = shuffle([...ALL_NOT_SPRING]); // 12 cards
+  // Each round: 6 spring + 3 not-spring = 9 unique cards
+  roundDecks = [];
+  for (let r = 0; r < 4; r++) {
+    const s = springShuffled.slice(r * 6, r * 6 + 6);
+    const n = notShuffled.slice(r * 3, r * 3 + 3);
+    roundDecks.push(shuffle([...s, ...n]));
+  }
+}
+
+const ROUND_MSGS = [
+  { e: '🌟', t: 'Pabeigts!',    s: 'Lieliski! Gatavs?' },
+  { e: '🎉', t: 'Bravo!',              s: 'Turpinām?' },
+  { e: '🌸', t: 'Ļoti labi!',          s: 'Turpini — tu vari to!' },
+  { e: '🦋', t: 'Fantastiski!',        s: 'Pēdējāis līmenis — uz priekšu!' },
+];
+
+const CORRECT_MSGS = [
+  { e: '🌟', t: 'Bravo!',        s: 'Tas ir pavasara pazīme!' },
+  { e: '🎉', t: 'Ļoti labi!',    s: 'Pareizi! Ļoti gudri!' },
+  { e: '👏', t: 'Superīgi!',     s: 'Tieši tā!' },
+  { e: '🌸', t: 'Jā, jā, jā!',   s: 'Tas tiešām pieder pavasarim!' },
+  { e: '🏆', t: 'Lieliski!',     s: 'Tu zini pavasari!' },
+];
+const WRONG_MSGS = [
+  { e: '🤔', t: 'Hmm...',        s: 'Tas nav pavasara pazīme. Mēģini vēlreiz!' },
+  { e: '😅', t: 'Gandrīz!',      s: 'Meklē ko pavasarīgāku!' },
+  { e: '💭', t: 'Padomā...',     s: 'Vai tas ir pavasarā?' },
+];
+
+const TOTAL_ROUNDS = 4;
+
+let cards = [];
+let correctCount = 0;
+let wrongCount = 0;
+let springTotal = 0;
+let foundSpring = 0;
+let currentRound = 1;
+let feedbackTimeout = null;
+
+function shuffle(arr) {
+  return [...arr].sort(() => Math.random() - 0.5);
+}
+
+function pickCards() {
+  return roundDecks[currentRound - 1];
+}
+
+function render() {
+  const grid = document.getElementById('cards-grid');
+  grid.innerHTML = '';
+  cards.forEach((card, i) => {
+    const el = document.createElement('div');
+    el.className = 'card';
+    el.dataset.index = i;
+    el.innerHTML = `
+      <span class="emoji">${card.emoji}</span>
+      <div class="label">${card.label}</div>
+      <span class="badge badge-correct">✅</span>
+      <span class="badge badge-wrong">❌</span>
+    `;
+    el.addEventListener('click', () => onCardClick(i, el));
+    grid.appendChild(el);
+  });
+}
+
+function onCardClick(i, el) {
+  if (el.classList.contains('revealed') || el.classList.contains('correct') || el.classList.contains('wrong')) return;
+  const card = cards[i];
+
+  if (card.spring) {
+    el.classList.add('correct', 'revealed');
+    correctCount++;
+    foundSpring++;
+    document.getElementById('correct-count').textContent = correctCount;
+    showFeedback(true);
+    if (foundSpring === springTotal) {
+      if (currentRound < TOTAL_ROUNDS) {
+        setTimeout(showRoundEnd, 900);
+      } else {
+        setTimeout(showFinalWin, 900);
+      }
+    }
+  } else {
+    el.classList.add('wrong');
+    wrongCount++;
+    document.getElementById('wrong-count').textContent = wrongCount;
+    showFeedback(false);
+    setTimeout(() => {
+      el.classList.remove('wrong');
+      el.classList.add('revealed', 'revealed-wrong');
+    }, 800);
+  }
+}
+
+function showFeedback(isCorrect) {
+  clearTimeout(feedbackTimeout);
+  const msgs = isCorrect ? CORRECT_MSGS : WRONG_MSGS;
+  const msg = msgs[Math.floor(Math.random() * msgs.length)];
+  document.getElementById('fb-emoji').textContent = msg.e;
+  document.getElementById('fb-text').textContent = msg.t;
+  document.getElementById('fb-sub').textContent = msg.s;
+  const fb = document.getElementById('feedback');
+  const ov = document.getElementById('overlay');
+  fb.classList.add('show');
+  ov.classList.add('show');
+  feedbackTimeout = setTimeout(() => {
+    fb.classList.remove('show');
+    ov.classList.remove('show');
+  }, 1400);
+}
+
+function showRoundEnd() {
+  launchConfetti(30);
+  const msg = ROUND_MSGS[currentRound - 1] || ROUND_MSGS[0];
+  document.getElementById('round-emoji').textContent = msg.e;
+  document.getElementById('round-title').textContent = msg.t;
+  document.getElementById('round-sub').textContent = msg.s;
+  document.getElementById('round-screen').classList.add('show');
+  document.getElementById('cards-grid').style.display = 'none';
+  document.getElementById('instruction').style.display = 'none';
+}
+
+function nextRound() {
+  currentRound++;
+  foundSpring = 0;
+  document.getElementById('round-screen').classList.remove('show');
+  document.getElementById('cards-grid').style.display = '';
+  document.getElementById('instruction').style.display = '';
+  document.getElementById('round-display').textContent = currentRound;
+  cards = pickCards();
+  springTotal = cards.filter(c => c.spring).length;
+  render();
+}
+
+function showFinalWin() {
+  launchConfetti(80);
+  const mistakes = wrongCount;
+  document.getElementById('final-sub').textContent =
+    `Tu pabeidzi visas 4 kārtas! 🌸🐦☀️ Kļūdas: ${mistakes}`;
+  document.getElementById('win-screen').classList.add('show');
+  document.getElementById('cards-grid').style.display = 'none';
+  document.getElementById('instruction').style.display = 'none';
+}
+
+function launchConfetti(count) {
+  const colors = ['#ff8fab','#ffd93d','#6ecb3c','#c77dff','#ff9f1c','#4fc3f7','#f44336'];
+  for (let i = 0; i < count; i++) {
+    const el = document.createElement('div');
+    el.className = 'confetti-piece';
+    el.style.left = Math.random() * 100 + 'vw';
+    el.style.background = colors[Math.floor(Math.random() * colors.length)];
+    el.style.width = (8 + Math.random() * 8) + 'px';
+    el.style.height = (10 + Math.random() * 12) + 'px';
+    el.style.setProperty('--drift', (Math.random() * 120 - 60) + 'px');
+    el.style.animationDuration = (2.5 + Math.random() * 2.5) + 's';
+    el.style.animationDelay = (Math.random() * 2) + 's';
+    el.style.borderRadius = Math.random() > 0.5 ? '50%' : '3px';
+    document.body.appendChild(el);
+    el.addEventListener('animationend', () => el.remove());
+  }
+}
+
+function restart() {
+  currentRound = 1;
+  correctCount = 0;
+  wrongCount = 0;
+  foundSpring = 0;
+  document.getElementById('correct-count').textContent = 0;
+  document.getElementById('wrong-count').textContent = 0;
+  document.getElementById('round-display').textContent = 1;
+  document.getElementById('win-screen').classList.remove('show');
+  document.getElementById('round-screen').classList.remove('show');
+  document.getElementById('cards-grid').style.display = '';
+  document.getElementById('instruction').style.display = '';
+  buildDecks();
+  cards = pickCards();
+  springTotal = cards.filter(c => c.spring).length;
+  render();
+}
+
+// Init
+buildDecks();
+cards = pickCards();
+springTotal = cards.filter(c => c.spring).length;
+render();
+</script>
+</body>
+</html>
